@@ -8,11 +8,13 @@
         android:id="@+id/item_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:textSize="15sp"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/num_textview" />
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/num_textview"
@@ -21,7 +23,22 @@
         android:layout_margin="@dimen/activity_vertical_margin"
         android:textSize="15sp"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true">
+        android:layout_below="@+id/item_textview"
+
+        >
     </TextView>
+
+    <TextView
+        android:id="@+id/des_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/num_textview"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="15sp" />
+
 </RelativeLayout>

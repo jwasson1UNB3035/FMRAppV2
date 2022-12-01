@@ -1,7 +1,9 @@
 package mobiledev.unb.ca.roompersistencelab
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.*
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private var mItemEditText: EditText? = null
     private var mNumberEditText: EditText? = null
     private var mResultsTextView: TextView? = null
+    private var mDescriptionEditText:TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         mNumberEditText = findViewById(R.id.number_edit_text)
         mResultsTextView = findViewById(R.id.results_text_view)
         mListView = findViewById(R.id.listview)
+        mDescriptionEditText = findViewById(R.id.des_edit_text)
 
         val mAddButton = findViewById<Button>(R.id.add_button)
         mAddButton.setOnClickListener {
@@ -38,6 +42,7 @@ class MainActivity : AppCompatActivity() {
             //  If not display a toast indicating that the data entered was incomplete.
             //  HINT:
             //    Have a look at the TextUtils class (https://developer.android.com/reference/android/text/TextUtils)
+            Log.i(TAG, "test1")
             val context = applicationContext
             val itemText = mItemEditText!!.text.toString()
             if (TextUtils.isEmpty(itemText)) {
@@ -55,8 +60,18 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            Log.i(TAG, "test2")
+            val descriptionText = mDescriptionEditText!!.text.toString()
+            if (TextUtils.isEmpty(descriptionText)) {
+                Toast.makeText(context,
+                        getString(R.string.err_no_des_value_entered),
+                        Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            Log.i(TAG, "test3")
+
             // TODO Call the addItem method using the the text from these EditTexts.
-            addItem(itemText, numberText)
+            addItem(itemText, numberText,descriptionText)
         }
 
         mSearchEditText = findViewById(R.id.search_edit_text)
@@ -84,10 +99,11 @@ class MainActivity : AppCompatActivity() {
         mItemViewModel = ViewModelProvider(this)[ItemViewModel::class.java]
     }
 
-    private fun addItem(item: String, num: String) {
+    private fun addItem(item: String, num: String, description: String) {
+        Log.i(TAG, "test4")
         // TODO 1
         //  Make a call to the view model to create a record in the database table
-        mItemViewModel.insert(item, num.toInt())
+        mItemViewModel.insert(item, num.toInt(), description)
 
         // TODO 2
         //  You will need to write a bit of extra code to get the
@@ -99,6 +115,7 @@ class MainActivity : AppCompatActivity() {
         //  choices.
         //  HINT:
         //    There is a utility object called KeyboardUtils which may be helpful here
+
         hideKeyboard(this@MainActivity)
 
         // Clear the search results and fields
@@ -106,6 +123,8 @@ class MainActivity : AppCompatActivity() {
         updateListView(null)
         mItemEditText!!.setText("")
         mNumberEditText!!.setText("")
+        mDescriptionEditText!!.setText("")
+        Log.i(TAG, "AFTER")
 
         Toast.makeText(applicationContext, getString(R.string.msg_record_added), Toast.LENGTH_SHORT)
             .show()
@@ -115,8 +134,8 @@ class MainActivity : AppCompatActivity() {
         // TODO
         //  Make a call to the view model to search for records in the database that match the query item.
         //  Make sure that the results are sorted appropriately
-        val items = mItemViewModel.findItemsByName(item)
-
+       // val items = mItemViewModel.findItemsByName(item)
+        val items = mItemViewModel.getAll()
         // TODO
         //  Update the results section.
         //  If there are no results, set the results TextView to indicate that there are no results.
@@ -143,6 +162,7 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     private fun updateListView(items: List<Item>?) {
+        Log.i(TAG, "in updateView")
         var currItems: List<Item>? = items
         if (null == currItems) {
             mResultsTextView!!.text = ""
@@ -153,5 +173,6 @@ class MainActivity : AppCompatActivity() {
         val mItemsAdapter = ItemsAdapter(applicationContext, currItems)
         mListView.adapter = mItemsAdapter
         mItemsAdapter.notifyDataSetChanged()
+        Log.i(TAG, "after updateView")
     }
 }

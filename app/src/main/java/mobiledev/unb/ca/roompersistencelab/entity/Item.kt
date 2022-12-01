@@ -15,4 +15,5 @@ class Item {
     var id = 0
     var name: String? = null
     var num = 0
+    var description: String? = null
 }

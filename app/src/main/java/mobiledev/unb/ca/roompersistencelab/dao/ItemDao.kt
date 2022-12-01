@@ -19,4 +19,7 @@ interface ItemDao {
 
     @Query("SELECT * FROM item_table WHERE name = :name ORDER BY num")
     fun findItemsWithName(name: String?): List<Item>
+
+    @Query("SELECT * FROM item_table")
+    fun getAll(): List<Item>
 }
