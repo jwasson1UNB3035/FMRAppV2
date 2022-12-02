@@ -1,6 +1,7 @@
 package mobiledev.unb.ca.roompersistencelab
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -14,7 +15,7 @@ import mobiledev.unb.ca.roompersistencelab.ui.ItemViewModel
 import mobiledev.unb.ca.roompersistencelab.ui.ItemsAdapter
 import mobiledev.unb.ca.roompersistencelab.utils.KeyboardUtils.hideKeyboard
 
-class MainActivity : AppCompatActivity() {
+class ReportPage : AppCompatActivity() {
     private lateinit var mItemViewModel: ItemViewModel
     private lateinit var mListView: ListView
 
@@ -72,6 +73,9 @@ class MainActivity : AppCompatActivity() {
 
             // TODO Call the addItem method using the the text from these EditTexts.
             addItem(itemText, numberText,descriptionText)
+
+            val intent = Intent(this@ReportPage, FeedPage::class.java)
+            startActivity(intent)
         }
 
         mSearchEditText = findViewById(R.id.search_edit_text)
@@ -83,8 +87,8 @@ class MainActivity : AppCompatActivity() {
                 //  Call the searchRecords method using the item name.
                 val text = v!!.text
                 if (!TextUtils.isEmpty(text)) {
-                    hideKeyboard(this@MainActivity)
-                    searchRecords(text.toString())
+                    hideKeyboard(this@ReportPage)
+                    //searchRecords(text.toString())
                 }
 
                 // Show error message if no search field added
@@ -116,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         //  HINT:
         //    There is a utility object called KeyboardUtils which may be helpful here
 
-        hideKeyboard(this@MainActivity)
+        hideKeyboard(this@ReportPage)
 
         // Clear the search results and fields
 //        clearListView()
@@ -130,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun searchRecords(item: String) {
+    private fun displayRecords() {
         // TODO
         //  Make a call to the view model to search for records in the database that match the query item.
         //  Make sure that the results are sorted appropriately

@@ -1,16 +1,21 @@
 <resources>
     <string name="app_name">Room Persistence Lab</string>
     <string name="lbl_enter_search_term">Enter a search term</string>
-    <string name="btn_add">Add</string>
-    <string name="lbl_item_edit_text_hint">Enter an item</string>
-    <string name="lbl_number_edit_text_hint">Enter a number</string>
+    <string name="btn_add">Submit Report</string>
+    <string name="button_back">Back</string>
+    <string name="lbl_item_edit_text_hint">Enter a title</string>
+    <string name="lbl_number_edit_text_hint">Enter a building/location</string>
     <string name="lbl_des_edit_text_hint">Enter a description</string>
-    <string name="err_no_item_value_entered">Please enter an item value</string>
-    <string name="err_no_number_value_entered">Please enter a number value</string>
+    <string name="err_no_item_value_entered">Please enter a title value</string>
+    <string name="err_no_number_value_entered">Please enter a building/location value</string>
     <string name="err_no_des_value_entered">Please enter a description value</string>
     <string name="err_no_search_term_entered">Please enter a search string</string>
-    <string name="msg_record_added">Record added</string>
-    <string name="msg_no_results_found">Sorry, no results found</string>
-    <string name="msg_single_result_found">%1$d result found</string>
-    <string name="msg_multiple_results_found">%1$d results found</string>
+    <string name="msg_record_added">Report added</string>
+    <string name="msg_no_results_found">Sorry, no reports found</string>
+    <string name="msg_single_result_found">%1$d current report</string>
+    <string name="msg_multiple_results_found">%1$d current reports</string>
+    <string name="title_feedpage">Reports Feed</string>
+    <string name="title_reportpage">Create a Report</string>
+    <string name="view_reports">View Reports</string>
+    <string name="button_start">Create a Report</string>
 </resources>
