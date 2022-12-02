@@ -13,14 +13,18 @@ class ItemViewModel(application: Application) : AndroidViewModel(application) {
 
     // TODO
     //  Add mapping calls between the UI and Database
-    fun insert(name: String?, num: Int, des: String?) {
+    fun insert(name: String?, num: String?, des: String?) {
         itemRepository.insertRecord(name, num, des)
         Log.i(TAG, "in view model")
     }
 
+    /*
     fun findItemsByName(name: String?): List<Item> {
         return itemRepository.findItemsWithName(name)
     }
+
+     */
+
 
     fun getAll(): List<Item> {
         Log.i(TAG, "in display reports view")

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Room Persistence Lab</string>
+    <string name="app_name">FMR</string>
     <string name="lbl_enter_search_term">Enter a search term</string>
     <string name="btn_add">Submit Report</string>
     <string name="button_back">Back</string>
@@ -18,4 +18,7 @@
     <string name="title_reportpage">Create a Report</string>
     <string name="view_reports">View Reports</string>
     <string name="button_start">Create a Report</string>
+    <string name="button_report">Submit</string>
+    <string name="title_signinpage">"Sign In "</string>
+    <string name="credentials">Please enter UNB email and password</string>
 </resources>

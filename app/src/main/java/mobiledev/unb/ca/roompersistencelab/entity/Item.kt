@@ -14,6 +14,6 @@ class Item {
     @PrimaryKey(autoGenerate = true)
     var id = 0
     var name: String? = null
-    var num = 0
+    var num: String? = null
     var description: String? = null
 }

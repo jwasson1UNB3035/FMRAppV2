@@ -16,7 +16,7 @@ class HomePage : AppCompatActivity() {
 
         val startButton = findViewById<Button>(R.id.btnStart)
         startButton.setOnClickListener {
-            val intent = Intent(this@HomePage, ReportPage::class.java)
+            val intent = Intent(this@HomePage, SignInPage::class.java)
             try {
                 startActivity(intent)
             } catch (ex: ActivityNotFoundException) {

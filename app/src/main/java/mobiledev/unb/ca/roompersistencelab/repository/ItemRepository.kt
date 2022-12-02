@@ -27,7 +27,7 @@ class ItemRepository(application: Application) {
     //  https://github.com/hpowell20/cs2063-fall-2022-examples/blob/master/Lecture7/RoomPersistenceLibraryDemo/app/src/main/java/mobiledev/unb/ca/roompersistencetest/repository/ItemRepository.java
     //  to see examples of how to work with the Executor Service along with Runnables and Callables
 
-    fun insertRecord(name: String?, num: Int, des: String?) {
+    fun insertRecord(name: String?, num: String?, des: String?) {
         Log.i(TAG, "in ItemRepos - insertRec1")
         val newItem = Item()
         newItem.name = name
@@ -42,7 +42,7 @@ class ItemRepository(application: Application) {
         Log.i(TAG, "in ItemRepos - insertRec3")
     }
 
-    fun findItemsWithName(name: String?): List<Item> {
+    /*fun findItemsWithName(name: String?): List<Item> {
         val dataReadFuture: Future<List<Item>> = AppDatabase.databaseWriterExecutor.submit(
             Callable {
                 itemDao!!.findItemsWithName(name)
@@ -61,6 +61,8 @@ class ItemRepository(application: Application) {
             emptyList()
         }
     }
+    */
+
 
     fun getAll(): List<Item> {
         val dataReadFuture: Future<List<Item>> = AppDatabase.databaseWriterExecutor.submit(

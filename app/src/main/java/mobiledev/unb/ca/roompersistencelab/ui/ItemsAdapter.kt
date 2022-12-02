@@ -33,7 +33,7 @@ class ItemsAdapter(context: Context, items: List<Item>) : ArrayAdapter<Item>(
         //  Set the text used by tvName and tvNum using the data object
         //  This will need to updated once the entity model has been updated
         tvName.text = item!!.name
-        tvNum.text = item.num.toString()
+        tvNum.text = item!!.num
         tvDescription.text = item!!.description
 
         Log.i(TAG, "in items adapter")

@@ -35,6 +35,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ReportPage" />
         </activity>
+        <activity
+            android:name=".SignInPage"
+            android:label="@string/title_signinpage"
+            android:parentActivityName=".SignInPage"
+            android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SignInPage" />
+        </activity>
     </application>
 
 </manifest>
