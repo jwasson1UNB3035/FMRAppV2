@@ -3,17 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Owner/Documents/GitHub/FMRAppV2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
-        <entry key="..\:/Users/Owner/Documents/GitHub/FMRAppV2/app/src/main/res/drawable-v24/mybutton.xml" value="0.2115" />
-        <entry key="..\:/Users/Owner/Documents/GitHub/FMRAppV2/app/src/main/res/drawable-v24/mybutton2.xml" value="0.1475" />
-        <entry key="..\:/Users/Owner/Documents/GitHub/FMRAppV2/app/src/main/res/drawable-v24/roundbutton.xml" value="0.1" />
-        <entry key="..\:/Users/Owner/Documents/GitHub/FMRAppV2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/Users/Owner/Documents/GitHub/FMRAppV2/app/src/main/res/font/opensans.xml" value="0.23333333333333334" />
-        <entry key="..\:/Users/Owner/Documents/GitHub/FMRAppV2/app/src/main/res/layout/activity_main.xml" value="0.18" />
-        <entry key="..\:/Users/Owner/Documents/GitHub/FMRAppV2/app/src/main/res/layout/feed_page.xml" value="0.18" />
-        <entry key="..\:/Users/Owner/Documents/GitHub/FMRAppV2/app/src/main/res/layout/home_page.xml" value="0.23694779116465864" />
-        <entry key="..\:/Users/Owner/Documents/GitHub/FMRAppV2/app/src/main/res/layout/list_layout.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/Owner/Documents/GitHub/FMRAppV2/app/src/main/res/layout/signin_page.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/list_layout.xml" value="0.26145833333333335" />
       </map>
