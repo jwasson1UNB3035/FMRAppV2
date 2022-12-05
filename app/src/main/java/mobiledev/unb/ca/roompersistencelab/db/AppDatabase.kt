@@ -4,18 +4,21 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import mobiledev.unb.ca.roompersistencelab.dao.ItemDao
+import mobiledev.unb.ca.roompersistencelab.dao.SignInDao
 import kotlin.jvm.Volatile
 import androidx.room.Room
 import mobiledev.unb.ca.roompersistencelab.entity.Item
+import mobiledev.unb.ca.roompersistencelab.entity.SignIn
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 /**
  * Database layer in top of the SQLite database
  */
-@Database(entities = [Item::class], version = 1, exportSchema = false)
+@Database(entities = [Item::class, SignIn::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun itemDao(): ItemDao?
+    abstract fun signInDao(): SignInDao?
 
     companion object {
         @Volatile

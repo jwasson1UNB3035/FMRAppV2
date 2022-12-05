@@ -48,7 +48,7 @@
         android:textStyle="bold"/>
 
     <EditText
-        android:id="@+id/simpleEditText"
+        android:id="@+id/username"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="155dp"
@@ -60,7 +60,7 @@
         android:textColorHint="@color/white" />
 
     <EditText
-        android:id="@+id/simpleEditText2"
+        android:id="@+id/password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="240dp"
