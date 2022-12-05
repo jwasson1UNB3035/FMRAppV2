@@ -56,15 +56,15 @@ class ReportPage : AppCompatActivity() {
 
         // Set the references for the views defined in the layout files
         mItemEditText = findViewById(R.id.item_edit_text)
-<<<<<<< Updated upstream
-        mNumberEditText = findViewById(R.id.number_edit_text)
+
+        mNumberEditText = findViewById(R.id.autocompletetextview)
         //mResultsTextView = findViewById(R.id.results_text_view)
         //mListView = findViewById(R.id.listview)
-=======
+
         mNumberEditText = findViewById(R.id.autocompletetextview)
         mResultsTextView = findViewById(R.id.results_text_view)
         mListView = findViewById(R.id.listview)
->>>>>>> Stashed changes
+
         mDescriptionEditText = findViewById(R.id.des_edit_text)
         ivPhoto = findViewById(R.id.photoReport_imageview)
 
