@@ -21,4 +21,6 @@
     <string name="button_report">Submit</string>
     <string name="title_signinpage">"Sign In "</string>
     <string name="credentials">Please enter UNB email and password</string>
+    <string name="btn_camera">Click to Add Photo</string>
+    <string name="err_no_photo_entered">Please take photo</string>
 </resources>

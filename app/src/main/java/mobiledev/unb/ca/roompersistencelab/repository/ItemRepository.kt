@@ -27,12 +27,13 @@ class ItemRepository(application: Application) {
     //  https://github.com/hpowell20/cs2063-fall-2022-examples/blob/master/Lecture7/RoomPersistenceLibraryDemo/app/src/main/java/mobiledev/unb/ca/roompersistencetest/repository/ItemRepository.java
     //  to see examples of how to work with the Executor Service along with Runnables and Callables
 
-    fun insertRecord(name: String?, num: String?, des: String?) {
+    fun insertRecord(name: String?, num: String?, des: String?, path: String?) {
         Log.i(TAG, "in ItemRepos - insertRec1")
         val newItem = Item()
         newItem.name = name
         newItem.num = num
         newItem.description = des
+        newItem.filePath = path
         insertRecord(newItem)
     }
 

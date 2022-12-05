@@ -10,6 +10,7 @@
     android:orientation="vertical"
     tools:context="mobiledev.unb.ca.roompersistencelab.ReportPage">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -44,13 +45,25 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/photoReport_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/camera_button"
+        android:text="@string/btn_camera"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/add_button"
         android:text="@string/btn_add"/>
 
-
+    <!--
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,5 +74,5 @@
     <ListView
         android:layout_width="match_parent"
         android:id="@+id/listview"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" /> -->
 </LinearLayout>

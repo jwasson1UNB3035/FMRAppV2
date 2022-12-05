@@ -16,4 +16,5 @@ class Item {
     var name: String? = null
     var num: String? = null
     var description: String? = null
+    var filePath: String? = null
 }

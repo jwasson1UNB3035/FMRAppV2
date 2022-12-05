@@ -2,11 +2,13 @@ package mobiledev.unb.ca.roompersistencelab.ui
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import mobiledev.unb.ca.roompersistencelab.R
 import android.widget.TextView
 import mobiledev.unb.ca.roompersistencelab.entity.Item
@@ -28,6 +30,7 @@ class ItemsAdapter(context: Context, items: List<Item>) : ArrayAdapter<Item>(
         val tvName = currView!!.findViewById<TextView>(R.id.item_textview)
         val tvNum = currView.findViewById<TextView>(R.id.num_textview)
         val tvDescription = currView.findViewById<TextView>(R.id.des_textview)
+        val ivPhoto: ImageView = currView.findViewById<ImageView>(R.id.photo_imageview)
 
         // TODO
         //  Set the text used by tvName and tvNum using the data object
@@ -35,6 +38,11 @@ class ItemsAdapter(context: Context, items: List<Item>) : ArrayAdapter<Item>(
         tvName.text = item!!.name
         tvNum.text = item!!.num
         tvDescription.text = item!!.description
+
+        var filePath = item!!.filePath
+        val bitmap = BitmapFactory.decodeFile(filePath)
+        ivPhoto.setImageBitmap(bitmap)
+
 
         Log.i(TAG, "in items adapter")
 

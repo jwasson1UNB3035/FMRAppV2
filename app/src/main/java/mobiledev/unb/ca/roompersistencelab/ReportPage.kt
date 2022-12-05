@@ -1,28 +1,52 @@
 package mobiledev.unb.ca.roompersistencelab
 
+import android.content.ActivityNotFoundException
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.MediaScannerConnection
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.*
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import mobiledev.unb.ca.roompersistencelab.entity.Item
 import mobiledev.unb.ca.roompersistencelab.ui.ItemViewModel
 import mobiledev.unb.ca.roompersistencelab.ui.ItemsAdapter
 import mobiledev.unb.ca.roompersistencelab.utils.KeyboardUtils.hideKeyboard
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ReportPage : AppCompatActivity() {
     private lateinit var mItemViewModel: ItemViewModel
     private lateinit var mListView: ListView
+    //private lateinit var currentPhotoPath: String
+    private lateinit var imageFileName: String
 
+    private var currentPhotoPath: String? = ""
     private var mItemEditText: EditText? = null
     private var mNumberEditText: EditText? = null
     private var mResultsTextView: TextView? = null
     private var mDescriptionEditText:TextView? = null
+    private var ivPhoto:ImageView? = null
+
+    private var cameraActivityResultLauncher: ActivityResultLauncher<Intent>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +55,13 @@ class ReportPage : AppCompatActivity() {
         // Set the references for the views defined in the layout files
         mItemEditText = findViewById(R.id.item_edit_text)
         mNumberEditText = findViewById(R.id.number_edit_text)
-        mResultsTextView = findViewById(R.id.results_text_view)
-        mListView = findViewById(R.id.listview)
+        //mResultsTextView = findViewById(R.id.results_text_view)
+        //mListView = findViewById(R.id.listview)
         mDescriptionEditText = findViewById(R.id.des_edit_text)
+        ivPhoto = findViewById(R.id.photoReport_imageview)
 
         val mAddButton = findViewById<Button>(R.id.add_button)
+        val mCameraButton = findViewById<Button>(R.id.camera_button)
         mAddButton.setOnClickListener {
             // TODO
             //  Check if some text has been entered in both the item and number EditTexts.
@@ -70,12 +96,30 @@ class ReportPage : AppCompatActivity() {
             }
             Log.i(TAG, "test3")
 
-            // TODO Call the addItem method using the the text from these EditTexts.
-            addItem(itemText, numberText,descriptionText)
+            // IF PHOTO NOT MADE
+            if (currentPhotoPath == "") {
+                Toast.makeText(context,
+                        getString(R.string.err_no_photo_entered),
+                        Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val filePath = currentPhotoPath.toString()
+
+            Log.i(TAG, filePath)
+
+            addItem(itemText, numberText,descriptionText, filePath)
+
+           // TODO erase the photo when you press back after report
 
             val intent = Intent(this@ReportPage, FeedPage::class.java)
             startActivity(intent)
         }
+
+        mCameraButton.setOnClickListener {
+            dispatchTakePhotoIntent()
+        }
+        setCameraActivityResultLauncher()
 
         /*
         mSearchEditText = findViewById(R.id.search_edit_text)
@@ -103,11 +147,11 @@ class ReportPage : AppCompatActivity() {
         mItemViewModel = ViewModelProvider(this)[ItemViewModel::class.java]
     }
 
-    private fun addItem(item: String, num: String, description: String) {
+    private fun addItem(item: String, num: String, description: String, path: String) {
         Log.i(TAG, "test4")
         // TODO 1
         //  Make a call to the view model to create a record in the database table
-        mItemViewModel.insert(item, num, description)
+        mItemViewModel.insert(item, num, description, path)
 
         // TODO 2
         //  You will need to write a bit of extra code to get the
@@ -128,12 +172,17 @@ class ReportPage : AppCompatActivity() {
         mItemEditText!!.setText("")
         mNumberEditText!!.setText("")
         mDescriptionEditText!!.setText("")
+        currentPhotoPath = ""
         Log.i(TAG, "AFTER")
 
         Toast.makeText(applicationContext, getString(R.string.msg_record_added), Toast.LENGTH_SHORT)
             .show()
+
+
+
     }
 
+    /*
     private fun displayRecords() {
         // TODO
         //  Make a call to the view model to search for records in the database that match the query item.
@@ -160,23 +209,143 @@ class ReportPage : AppCompatActivity() {
         updateListView(items)
     }
 
+
+     */
+
 //    private fun clearListView() {
 //        mResultsTextView!!.text = ""
 //        updateListView(ArrayList())
 //    }
 
     private fun updateListView(items: List<Item>?) {
-        Log.i(TAG, "in updateView")
+        Log.i(TAG, "in updateView1")
         var currItems: List<Item>? = items
+        Log.i(TAG, "in updateView2")
         if (null == currItems) {
-            mResultsTextView!!.text = ""
+            Log.i(TAG, "in UV1")
+            //mResultsTextView!!.text = ""
+            Log.i(TAG, "in UV2")
             currItems = ArrayList()
+            Log.i(TAG, "in UV3")
+        }
+        Log.i(TAG, "in updateView3")
+
+        val mItemsAdapter = ItemsAdapter(applicationContext, currItems)
+        Log.i(TAG, "in updateView4")
+        //mListView.adapter = mItemsAdapter
+        Log.i(TAG, "in updateView5")
+        mItemsAdapter.notifyDataSetChanged()
+        Log.i(TAG, "after updateView6")
+    }
+
+    // Camera methods
+    private fun setCameraActivityResultLauncher() {
+        cameraActivityResultLauncher = registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                galleryAddPic()
+            }
+        }
+    }
+
+    private fun dispatchTakePhotoIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            // Ensure that there is a camera activity to handle the intent
+            try {
+                // Set the File object used to save the photo
+                var photoFile: File? = null
+                try {
+                    photoFile = createImageFile()
+                } catch (ex: IOException) {
+                    // Error occurred while creating the File
+                    Log.e(TAG, "Exception found when creating the photo save file")
+                }
+
+                // Continue only if the File was successfully created
+                photoFile?.also {
+                    val photoURI = FileProvider.getUriForFile(
+                            this,
+                            "mobiledev.unb.ca.lab3intents.provider",
+                            photoFile
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+
+                    // Calling this method allows us to capture the return code
+                    cameraActivityResultLauncher!!.launch(takePictureIntent)
+                }
+            } catch (ex: ActivityNotFoundException) {
+                Log.e(TAG, "Unable to load photo activity", ex)
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val TIME_STAMP_FORMAT = "yyyyMMdd_HHmmss"
+        val timeStamp = SimpleDateFormat(TIME_STAMP_FORMAT, Locale.getDefault()).format(Date())
+        imageFileName = "IMG_" + timeStamp + "_"
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+                imageFileName,  // prefix
+                ".png",  // suffix
+                storageDir // directory
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
         }
 
 
-        val mItemsAdapter = ItemsAdapter(applicationContext, currItems)
-        mListView.adapter = mItemsAdapter
-        mItemsAdapter.notifyDataSetChanged()
-        Log.i(TAG, "after updateView")
+
+    }
+
+    private fun galleryAddPic() {
+        Log.d(TAG, "Saving image to the gallery")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            // Android 10 and above
+            mediaStoreAddPicToGallery()
+        } else {
+            // Pre Android 10
+            mediaScannerAddPicToGallery()
+        }
+        Log.i(TAG, "Image saved!")
+
+        var filePath = currentPhotoPath.toString()
+        val bitmap = BitmapFactory.decodeFile(filePath)
+        ivPhoto?.setImageBitmap(bitmap)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun mediaStoreAddPicToGallery() {
+        val name = imageFileName
+        val bitmap = BitmapFactory.decodeFile(currentPhotoPath)
+
+        val contentValues = ContentValues()
+        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "$name.jpg")
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+
+        val resolver = contentResolver
+        val imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+        try {
+            resolver.openOutputStream(imageUri!!).use { fos ->
+                bitmap.compress(
+                        Bitmap.CompressFormat.JPEG,
+                        100,
+                        fos
+                )
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "Error saving the file ", e)
+        }
+    }
+
+    private fun mediaScannerAddPicToGallery() {
+        val file = File(currentPhotoPath)
+        MediaScannerConnection.scanFile(this@ReportPage,
+                arrayOf(file.toString()),
+                arrayOf(file.name),
+                null)
     }
 }
