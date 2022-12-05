@@ -17,11 +17,13 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="175dp"
+        android:background="@drawable/mybutton"
         android:text="@string/button_start"
         android:textColor="@color/red"
         android:textSize="20sp"
-        android:textStyle="bold"
-        app:backgroundTint="@color/white" />
+
+        android:textStyle="bold" />
+
 
     <Button
         android:id="@+id/btnFeed"
@@ -29,9 +31,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="350dp"
+        android:background="@drawable/mybutton"
         android:text="@string/view_reports"
         android:textColor="@color/red"
         android:textSize="20sp"
-        android:textStyle="bold"
-        app:backgroundTint="@color/white" />
+        android:textStyle="bold" />
+
 </RelativeLayout>

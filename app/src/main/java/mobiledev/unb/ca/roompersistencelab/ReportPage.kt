@@ -48,17 +48,34 @@ class ReportPage : AppCompatActivity() {
 
     private var cameraActivityResultLauncher: ActivityResultLauncher<Intent>? = null
 
+    val suggestion = arrayOf("Head Hall", "Harriet Irving Library", "Bailey Hall", "Student Union Building", "Currie Center")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Set the references for the views defined in the layout files
         mItemEditText = findViewById(R.id.item_edit_text)
+<<<<<<< Updated upstream
         mNumberEditText = findViewById(R.id.number_edit_text)
         //mResultsTextView = findViewById(R.id.results_text_view)
         //mListView = findViewById(R.id.listview)
+=======
+        mNumberEditText = findViewById(R.id.autocompletetextview)
+        mResultsTextView = findViewById(R.id.results_text_view)
+        mListView = findViewById(R.id.listview)
+>>>>>>> Stashed changes
         mDescriptionEditText = findViewById(R.id.des_edit_text)
         ivPhoto = findViewById(R.id.photoReport_imageview)
+
+
+        val autocomp = findViewById<AutoCompleteTextView>(R.id.autocompletetextview)
+        val adapterArray = ArrayAdapter(applicationContext,android.R.layout.simple_spinner_dropdown_item,suggestion)
+        autocomp.setAdapter(adapterArray)
+        autocomp.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
+            Toast.makeText(applicationContext,"Clicked item = "+suggestion[position],Toast.LENGTH_SHORT).show()
+        })
+
 
         val mAddButton = findViewById<Button>(R.id.add_button)
         val mCameraButton = findViewById<Button>(R.id.camera_button)

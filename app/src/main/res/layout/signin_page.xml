@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="320dp"
-        android:text="@string/button_report" />
+        android:text="@string/button_report"
+        android:background="@drawable/mybutton"/>/>
 
     <TextView
         android:id="@+id/simpleTextView"
