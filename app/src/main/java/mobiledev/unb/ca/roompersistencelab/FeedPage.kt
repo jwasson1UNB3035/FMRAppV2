@@ -31,6 +31,8 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
+var inputExample = false
+
 class FeedPage : AppCompatActivity() {
 
     private lateinit var mItemViewModel: ItemViewModel
@@ -48,7 +50,12 @@ class FeedPage : AppCompatActivity() {
 
         // TODO ADD BACK BUTTON
 
-        mItemViewModel.insert("light", "Head Hall", "fix light", "")
+        if(inputExample == false){
+            inputExample = true
+            mItemViewModel.insert("Icy Path", "Lady Beaverbrook Residence", "There is a patch of ice by the bottom of the hill in front of LB Residence.", "")
+            mItemViewModel.insert("Computer Not Working", "Head Hall", "The computer at the end of the table in front of the door in lab ID414 is not turning on.", "")
+           // System.out.println("inputExample 2 = " + inputExample)
+        }
 
         displayRecords()
 
