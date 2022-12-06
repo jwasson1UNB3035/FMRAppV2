@@ -6,6 +6,7 @@ The app represents a tool that allows students to create reports for issues on c
 
 Expected User Flow
   - App opens on home page with option to click on 'Create a Report' or 'View Reports' buttons
+  - Clicking on 'View Reports' takes the user to the feed page where the reports are displayed
   - Clicking on 'Create a Report' takes the user to the sign in page
   - The user can sign in using a credential that is pre stored in the database (Email = 'jsmith1@unb.ca' Password = 'password') and then click the 'Submit' button
   - After a succcessful sign in the user is take to the report page where they need to input a title, building/location, description and picture for the report
