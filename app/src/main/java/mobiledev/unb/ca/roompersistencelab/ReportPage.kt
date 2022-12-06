@@ -22,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import mobiledev.unb.ca.roompersistencelab.entity.Item
 import mobiledev.unb.ca.roompersistencelab.ui.ItemViewModel
@@ -61,6 +62,9 @@ class ReportPage : AppCompatActivity() {
         //mListView = findViewById(R.id.listview)
         mDescriptionEditText = findViewById(R.id.des_edit_text)
         ivPhoto = findViewById(R.id.photoReport_imageview)
+        if (ivPhoto != null) {
+            ivPhoto!!.isVisible = false
+        }
 
 
         val autoTextView = findViewById<AutoCompleteTextView>(R.id.number_edit_text)
@@ -152,6 +156,8 @@ class ReportPage : AppCompatActivity() {
             false
         } */
 
+
+
         // Set the ViewModel
         mItemViewModel = ViewModelProvider(this)[ItemViewModel::class.java]
         //addItem("light", "Head Hall", "fix light", "")
@@ -183,6 +189,10 @@ class ReportPage : AppCompatActivity() {
         mNumberEditText!!.setText("")
         mDescriptionEditText!!.setText("")
         currentPhotoPath = ""
+
+        if (ivPhoto != null) {
+            ivPhoto!!.isVisible = false
+        }
         Log.i(TAG, "AFTER")
 
         Toast.makeText(applicationContext, getString(R.string.msg_record_added), Toast.LENGTH_SHORT)
@@ -324,6 +334,9 @@ class ReportPage : AppCompatActivity() {
         var filePath = currentPhotoPath.toString()
         val bitmap = BitmapFactory.decodeFile(filePath)
         ivPhoto?.setImageBitmap(bitmap)
+        if (ivPhoto != null) {
+            ivPhoto!!.isVisible = true
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
