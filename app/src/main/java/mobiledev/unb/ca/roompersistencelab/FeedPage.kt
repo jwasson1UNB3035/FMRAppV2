@@ -48,11 +48,14 @@ class FeedPage : AppCompatActivity() {
 
         // TODO ADD BACK BUTTON
 
+        mItemViewModel.insert("light", "Head Hall", "fix light", "")
 
         displayRecords()
 
 
     }
+
+
 
     private fun displayRecords() {
         // TODO

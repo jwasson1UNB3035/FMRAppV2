@@ -52,6 +52,8 @@ class ReportPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
         // Set the references for the views defined in the layout files
         mItemEditText = findViewById(R.id.item_edit_text)
         mNumberEditText = findViewById(R.id.number_edit_text)
@@ -59,6 +61,13 @@ class ReportPage : AppCompatActivity() {
         //mListView = findViewById(R.id.listview)
         mDescriptionEditText = findViewById(R.id.des_edit_text)
         ivPhoto = findViewById(R.id.photoReport_imageview)
+
+
+        val autoTextView = findViewById<AutoCompleteTextView>(R.id.number_edit_text)
+        val location2 = resources.getStringArray(R.array.location)
+        val arrayAdapter = ArrayAdapter(this,android.R.layout.simple_list_item_1, location2)
+            autoTextView.setAdapter(arrayAdapter)
+
 
         val mAddButton = findViewById<Button>(R.id.add_button)
         val mCameraButton = findViewById<Button>(R.id.camera_button)
@@ -145,6 +154,7 @@ class ReportPage : AppCompatActivity() {
 
         // Set the ViewModel
         mItemViewModel = ViewModelProvider(this)[ItemViewModel::class.java]
+        //addItem("light", "Head Hall", "fix light", "")
     }
 
     private fun addItem(item: String, num: String, description: String, path: String) {

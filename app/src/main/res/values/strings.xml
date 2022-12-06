@@ -23,4 +23,19 @@
     <string name="credentials">Please enter UNB email and password</string>
     <string name="btn_camera">Click to Add Photo</string>
     <string name="err_no_photo_entered">Please take photo</string>
+    <string-array name="location">
+        <item>Harriet Irving Library</item>
+        <item>Head Hall</item>
+        <item>Student Union Building</item>
+        <item>Bailey Hall</item>
+        <item>Gillin Hall</item>
+        <item>Tilley Hall</item>
+        <item>Carleton Hall</item>
+        <item>Toole Hall</item>
+        <item>Law Building</item>
+        <item>Lady Beaverbrook Gym</item>
+        <item>MacLaggan Hall</item>
+        <item>Marshall d'Avray Hall</item>
+
+    </string-array>
 </resources>
