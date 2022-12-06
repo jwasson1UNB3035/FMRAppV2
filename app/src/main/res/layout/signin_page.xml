@@ -15,6 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="320dp"
+        android:textColor="@color/red"
+        android:backgroundTint="@color/white"
         android:text="@string/button_report" />
 
     <TextView
@@ -33,9 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
         android:text="@string/credentials"
-        android:textColor="@color/red"
+        android:textColor="@color/white"
         android:textSize="17sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/Image"
